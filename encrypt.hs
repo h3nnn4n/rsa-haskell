@@ -15,8 +15,6 @@ main = do
     args  <- getArgs
     input <- readFile (head args)
     keys  <- readFile ((args !! 1) ++ "_pub.key")
-    print keys
-    print input
     let blocks = splitEvery 6 input
         padded = padd blocks
         key = splitOn ";" keys
