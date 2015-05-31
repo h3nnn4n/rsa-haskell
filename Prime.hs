@@ -2,7 +2,7 @@ module Prime where
 
 import System.Random
 import Control.Monad
-import System.IO.Unsafe -- Whoops
+import System.IO.Unsafe -- ┌(° o °)┘ DANCE! └(° o °)┐
 
 
 findPrime :: Integer -> Int -> Integer
@@ -39,7 +39,7 @@ satisfy (x:xs) n
      | head xs == 1  = (((x^2) - (-1)) `mod` n == 0) || (((x^2) - 1) `mod` n == 0)
      | otherwise     = satisfy xs n
 
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 witnesses :: Int -> Integer -> [Integer]
 witnesses k n = unsafePerformIO (witnessesNoob k n)
