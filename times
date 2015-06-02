@@ -22,3 +22,4 @@
 ./notBombe $i  4985.31s user 25.36s system 99% cpu 1:23:49.51 total
 ./notBombe $i  13946.60s user 66.23s system 99% cpu 3:54:22.41 total
 ./notBombe $i  23392.71s user 117.83s system 99% cpu 6:33:20.05 total
+./notBombe $i  37021.06s user 210.56s system 99% cpu 10:23:42.64 total
