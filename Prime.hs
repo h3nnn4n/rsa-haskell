@@ -23,14 +23,6 @@ factor2 n = f2 n 0
 iter :: Integer -> (Integer, Integer) -> Integer -> [Integer]
 iter a (k, d) n = map (\x -> powm a (k*x) n 1) [ 2^x | x <- [0, 1 .. d]]
 
-----------------------------------------------------------------------------------------
--- Got from rosetta code modular exponentiation page                                 -- |
-powm :: Integer -> Integer -> Integer -> Integer -> Integer                          -- |
-powm b 0 m r = r                                                                     -- |
-powm b e m r | e `mod` 2 == 1 = powm (b * b `mod` m) (e `div` 2) m (r * b `mod` m)   -- |
-powm b e m r = powm (b * b `mod` m) (e `div` 2) m r                                  -- |
-----------------------------------------------------------------------------------------
-
 -- Given a list from the Miller-Rabin primality test steps
 -- finds out if the term before 1 squared is congruent to +/- one
 satisfy :: [Integer] -> Integer -> Bool
@@ -39,7 +31,16 @@ satisfy (x:xs) n
      | head xs == 1  = (((x^2) - (-1)) `mod` n == 0) || (((x^2) - 1) `mod` n == 0)
      | otherwise     = satisfy xs n
 
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+--      --
+-- JUNK --
+--      --
+----------------------------------------------------------------------------------------
+-- Got from rosetta code modular exponentiation page                                 -- |
+powm :: Integer -> Integer -> Integer -> Integer -> Integer                          -- |
+powm b 0 m r = r                                                                     -- |
+powm b e m r | e `mod` 2 == 1 = powm (b * b `mod` m) (e `div` 2) m (r * b `mod` m)   -- |
+powm b e m r = powm (b * b `mod` m) (e `div` 2) m r                                  -- |
+----------------------------------------------------------------------------------------
 
 witnesses :: Int -> Integer -> [Integer]
 witnesses k n = unsafePerformIO (witnessesNoob k n)
