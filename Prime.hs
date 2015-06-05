@@ -4,12 +4,19 @@ import System.Random
 import Control.Monad
 import System.IO.Unsafe -- ┌(° o °)┘ DANCE! └(° o °)┐
 
+import Math.NumberTheory.Moduli
 
 findPrime :: Integer -> Int -> Integer
 findPrime b k = head (dropWhile (\x -> not (millerRabin x k)) (keyMaker 10000000000000000 b))
 
 millerRabin :: Integer -> Int -> Bool
-millerRabin n k = and $ map (maybePrime n) (witnesses k n)
+millerRabin _ 0 = False
+millerRabin 2 _ = True
+millerRabin n k
+    | k == 0    = False
+    | n == 2    = True
+    | n < 2     = False
+    | otherwise = and $ map (maybePrime n) (witnesses k n)
 
 maybePrime :: Integer -> Integer -> Bool
 maybePrime n a = satisfy (iter a (factor2 (n-1)) n) n
@@ -21,7 +28,7 @@ factor2 n = f2 n 0
            | otherwise = (n,s)
 
 iter :: Integer -> (Integer, Integer) -> Integer -> [Integer]
-iter a (k, d) n = map (\x -> powm a (k*x) n 1) [ 2^x | x <- [0, 1 .. d]]
+iter a (k, d) n = map (\x -> powerMod a (k*x) n) [ 2^x | x <- [0, 1 .. d]]
 
 -- Given a list from the Miller-Rabin primality test steps
 -- finds out if the term before 1 squared is congruent to +/- one
@@ -34,12 +41,6 @@ satisfy (x:xs) n
 --      --
 -- JUNK --
 --      --
-----------------------------------------------------------------------------------------
--- Got from rosetta code modular exponentiation page                                 -- |
-powm :: Integer -> Integer -> Integer -> Integer -> Integer                          -- |
-powm b 0 m r = r                                                                     -- |
-powm b e m r | e `mod` 2 == 1 = powm (b * b `mod` m) (e `div` 2) m (r * b `mod` m)   -- |
-powm b e m r = powm (b * b `mod` m) (e `div` 2) m r                                  -- |
 ----------------------------------------------------------------------------------------
 
 witnesses :: Int -> Integer -> [Integer]

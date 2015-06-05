@@ -3,6 +3,8 @@ module Rsa where
 import ExtendedEuclides
 import Prime
 
+import Math.NumberTheory.Moduli
+
 --genKeys k = [(p, q), (e,p * q), (d, p * q)]
 genKeys k = [(e, p * q) , (d, p * q)]
     where
@@ -16,6 +18,6 @@ genKeys k = [(e, p * q) , (d, p * q)]
             where
                 getPhi p q = (p - 1) * (q - 1)
 
-cypher m (e, n) = powm m e n 1
+cypher m (e, n) = powerMod m e n
 
-decypher m (d, n) = powm m d n 1
+decypher m (d, n) = powerMod m d n
