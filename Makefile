@@ -1,3 +1,4 @@
+#HSFLAGS=-prof -fforce-recomp -auto-all -caf-all --make -O2
 HSFLAGS=-w
 
 all:
